@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug Main Class",
+            "request": "launch",
+            "mainClass": "com.github.serezhka.airplay.app.PlayerApp",
+            "projectName": "app",
+            "cwd": "${workspaceFolder}/player/app",
+            "preLaunchTask": "Run Gradle BootRun"
+        }
+    ]
+}
