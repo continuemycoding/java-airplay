@@ -4,6 +4,8 @@ import com.github.serezhka.airplay.server.AirPlayConfig;
 import com.github.serezhka.airplay.server.AirPlayConsumer;
 import com.github.serezhka.airplay.server.internal.handler.control.ControlHandler;
 import com.github.serezhka.airplay.server.internal.handler.session.SessionManager;
+import com.github.serezhka.airplay.server.internal.handler.util.NetworkUtil;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -65,7 +67,7 @@ public class ControlServer implements Runnable {
             serverBootstrap
                     .group(bossGroup, workerGroup)
                     .channel(serverSocketChannelClass())
-                    .localAddress(new InetSocketAddress(0)) // bind random port
+                    .localAddress(new InetSocketAddress(NetworkUtil.findAvailablePort()))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(final SocketChannel ch) {

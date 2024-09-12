@@ -4,6 +4,8 @@ import com.github.serezhka.airplay.lib.AirPlay;
 import com.github.serezhka.airplay.server.AirPlayConsumer;
 import com.github.serezhka.airplay.server.internal.decoder.AudioDecoder;
 import com.github.serezhka.airplay.server.internal.handler.audio.AudioHandler;
+import com.github.serezhka.airplay.server.internal.handler.util.NetworkUtil;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -58,7 +60,7 @@ public class AudioServer implements Runnable {
             bootstrap
                     .group(workerGroup)
                     .channel(datagramChannelClass())
-                    .localAddress(new InetSocketAddress(0)) // bind random port
+                    .localAddress(new InetSocketAddress(NetworkUtil.findAvailablePort()))
                     .handler(new ChannelInitializer<DatagramChannel>() {
                         @Override
                         public void initChannel(final DatagramChannel ch) {

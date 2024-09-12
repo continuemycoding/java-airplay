@@ -1,6 +1,8 @@
 package com.github.serezhka.airplay.server.internal;
 
 import com.github.serezhka.airplay.server.internal.handler.audio.AudioControlHandler;
+import com.github.serezhka.airplay.server.internal.handler.util.NetworkUtil;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -44,7 +46,7 @@ public class AudioControlServer implements Runnable {
             bootstrap
                     .group(workerGroup)
                     .channel(datagramChannelClass())
-                    .localAddress(new InetSocketAddress(0)) // bind random port
+                    .localAddress(new InetSocketAddress(NetworkUtil.findAvailablePort()))
                     .handler(new ChannelInitializer<DatagramChannel>() {
                         @Override
                         public void initChannel(final DatagramChannel ch) {

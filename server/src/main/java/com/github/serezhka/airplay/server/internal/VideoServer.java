@@ -3,6 +3,7 @@ package com.github.serezhka.airplay.server.internal;
 import com.github.serezhka.airplay.lib.AirPlay;
 import com.github.serezhka.airplay.server.AirPlayConsumer;
 import com.github.serezhka.airplay.server.internal.decoder.VideoDecoder;
+import com.github.serezhka.airplay.server.internal.handler.util.NetworkUtil;
 import com.github.serezhka.airplay.server.internal.handler.video.VideoHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -59,7 +60,7 @@ public class VideoServer implements Runnable {
             serverBootstrap
                     .group(bossGroup, workerGroup)
                     .channel(serverSocketChannelClass())
-                    .localAddress(new InetSocketAddress(0)) // bind random port
+                    .localAddress(new InetSocketAddress(NetworkUtil.findAvailablePort()))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(final SocketChannel ch) {
